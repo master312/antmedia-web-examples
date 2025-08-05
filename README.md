@@ -12,6 +12,9 @@ This project provides reusable Web Components for building WebRTC applications w
 - Better organize simples or something?
 - Custom selector instead of \<select\> for dropdowns? So that it can be customised?
 - URL Parameter Handling?
+- Rename 'stream-simple-controls' to somehting more descriptive
+- Fix 'stream-simple-state' bugs
+- Fix display bugs for 'simple-stream-controlls' while reconnecting
 
 ---
 
