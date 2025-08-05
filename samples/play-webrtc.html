@@ -53,6 +53,8 @@
     <script src="../js/external/bootstrap.bundle.min.js"></script>
     <script type="module">
         import {WebRTCAdaptor} from '../js/ant-sdk/webrtc_adaptor.js';
+        import { BACKEND_URL } from '../js/samples-config.js';
+        import { getWebSocketURL } from '../js/ant-sdk/utility.js';
         import '../components/stream-simple-controls.js';
         import '../components/stream-simple-state.js';
         import '../components/video-view.js';
@@ -69,7 +71,7 @@
             const msgDisplayer = document.getElementById('msg-displayer');
 
             const adaptor = new WebRTCAdaptor({
-                websocket_url: "ws://localhost:5080/WebRTCAppEE/websocket",
+                websocket_url: getWebSocketURL(BACKEND_URL),
                 remoteVideoElement: remoteVideo.video,
                 isPlayMode: true,
                 dataChannelEnabled: true,

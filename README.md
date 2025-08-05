@@ -6,7 +6,6 @@
 This project provides reusable Web Components for building WebRTC applications with Ant Media Server. Sample demonstrations using these components can be found in the `/samples/` directory.
 
 ### TODO:
-- Common config for serverURL
 - Image Sharing via Data Channel
 - Resolution selector
 - Better organize simples or something?

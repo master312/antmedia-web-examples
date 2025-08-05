@@ -29,14 +29,14 @@
         </div>
 
         <vod-browser id="vod-browser"
-            server-url="http://localhost:5080/WebRTCAppEE"
+            server-url=""
             page-size="12">
         </vod-browser>
 
         <div class="row mt-4 mb-4">
             <div class="col">
                 <vod-uploader id="vod-uploader"
-                    server-url="http://localhost:5080/WebRTCAppEE"
+                    server-url=""
                     max-file-size="500MB">
                 </vod-uploader>
             </div>
@@ -45,6 +45,7 @@
     </div>
 
     <script type="module">
+        import { BACKEND_URL } from '../js/samples-config.js';
         import '../components/vod-browser.js';
         import '../components/vod-uploader.js';
         import '../components/video-view.js';
@@ -55,11 +56,14 @@
             const vodPlayer = document.getElementById('vod-player');
             const currentVodName = document.getElementById('current-vod-name');
 
+            const serverUrl = BACKEND_URL.origin + BACKEND_URL.pathname;
+            vodBrowser.setBackendUrl(serverUrl);
+            vodUploader.setBackendUrl(serverUrl);
+
             vodBrowser.addEventListener('vod-selected', (event) => {
                 const vod = event.detail.vod;
                 console.log('VOD Selected:', vod);
                 
-                const serverUrl = vodBrowser.getAttribute('server-url');
                 const vodUrl = `${serverUrl}/${vod.filePath}`;
 
                 vodPlayer.video.src = vodUrl;

@@ -29,7 +29,7 @@
         </div>
 
         <broadcast-browser id="broadcast-browser"
-            server-url="http://localhost:5080/WebRTCAppEE"
+            server-url=""
             page-size="12">
         </broadcast-browser>
 
@@ -39,6 +39,8 @@
 
     <script type="module">
         import { WebRTCAdaptor } from '../js/ant-sdk/webrtc_adaptor.js';
+        import { BACKEND_URL } from '../js/samples-config.js';
+        import { getWebSocketURL } from '../js/ant-sdk/utility.js';
         import '../components/broadcast-browser.js';
         import '../components/video-view.js';
         import '../components/msg-display.js';
@@ -49,10 +51,12 @@
             const currentBroadcastName = document.getElementById('current-broadcast-name');
             const msgDisplayer = document.getElementById('msg-displayer');
 
+            broadcastBrowser.setBackendUrl(BACKEND_URL.origin + BACKEND_URL.pathname);
+
             let currentStreamId = null;
 
             const adaptor = new WebRTCAdaptor({
-                websocket_url: "ws://localhost:5080/WebRTCAppEE/websocket",
+                websocket_url: getWebSocketURL(BACKEND_URL),
                 remoteVideoElement: videoPlayer.video,
                 isPlayMode: true,
                 dataChannelEnabled: true,

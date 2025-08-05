@@ -35,8 +35,6 @@ const TAGS = {
     VOD: { title: 'VOD', color: '#6c757d' },
 };
 
-export const BACKEND_URL = new URL("http://localhost:5080/WebRTCAppEE/");
-
 export const samples = [
     {
         name: "Conference",

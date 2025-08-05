@@ -59,10 +59,21 @@ class VodUploader extends HTMLElement {
         this._selectedFile = null;
         this._isUploading = false;
         this.xhr = null; // To hold the XMLHttpRequest object for aborting
+        this._backendUrl = '';
     }
 
     static get observedAttributes() {
-        return ['server-url', 'max-file-size'];
+        return ['backend-url', 'max-file-size'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'backend-url') {
+            this._backendUrl = newValue ? newValue.replace(/\/$/, '') : '';
+        }
+    }
+
+    setBackendUrl(url) {
+        this.setAttribute('backend-url', url);
     }
 
     connectedCallback() {
@@ -142,7 +153,7 @@ class VodUploader extends HTMLElement {
             return;
         }
 
-        const serverUrl = this.getAttribute('server-url');
+        const serverUrl = this._backendUrl;
         if (!serverUrl) {
             this._dispatchErrorEvent('Server URL and App Name are required.', 'missingConfiguration');
             return;

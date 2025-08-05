@@ -48,16 +48,25 @@ class BroadcastBrowser extends HTMLElement {
         this._allBroadcasts = [];
         this._currentFilter = 'all';
         this._currentSearchTerm = '';
+        this._backendUrl = '';
     }
 
     static get observedAttributes() {
-        return ['server-url', 'page-size'];
+        return ['backend-url', 'page-size'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'backend-url') {
+            this._backendUrl = newValue ? newValue.replace(/\/$/, '') : '';
+        }
+
         if (oldValue !== newValue) {
             this.refresh();
         }
+    }
+
+    setBackendUrl(url) {
+        this.setAttribute('backend-url', url);
     }
 
     connectedCallback() {
@@ -128,7 +137,7 @@ class BroadcastBrowser extends HTMLElement {
     }
 
     refresh() {
-        if (!this.getAttribute('server-url')) {
+        if (!this._backendUrl) {
             return;
         }
         this._currentPage = 0;
@@ -136,13 +145,10 @@ class BroadcastBrowser extends HTMLElement {
     }
 
     async _fetchBroadcasts() {
-        const serverUrl = this.getAttribute('server-url');
-
         this._showLoading(true);
 
         try {
-            // Fetch a large number of broadcasts to simplify logic for this sample.
-            const response = await fetch(`${serverUrl}/rest/v2/broadcasts/list/0/200?sort_by=date&order_by=desc`);
+            const response = await fetch(`${this._backendUrl}/rest/v2/broadcasts/list/0/200?sort_by=date&order_by=desc`);
             if (!response.ok) throw new Error(`Server responded with status ${response.status}`);
 
             const broadcasts = await this._toJson(response);
@@ -198,7 +204,7 @@ class BroadcastBrowser extends HTMLElement {
             item.className = 'broadcast-item';
             item.dataset.broadcast = JSON.stringify(broadcast);
 
-            const thumbnailUrl = `${this.getAttribute('server-url')}/previews/${broadcast.streamId}.png`;
+            const thumbnailUrl = `${this._backendUrl}/previews/${broadcast.streamId}.png`;
             const copyIconUrl = ComponentCommon.getIconsBootstrapPath() + 'copy.svg';
             
             const statusClass = broadcast.status === 'broadcasting' 

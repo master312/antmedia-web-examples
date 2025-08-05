@@ -44,16 +44,25 @@ class VodBrowser extends HTMLElement {
         this._currentPage = 0;
         this._allVods = [];
         this._currentSearchTerm = '';
+        this._backendUrl = '';
     }
 
     static get observedAttributes() {
-        return ['server-url', 'page-size', 'disable-delete'];
+        return ['backend-url', 'page-size', 'disable-delete'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'backend-url') {
+            this._backendUrl = newValue ? newValue.replace(/\/$/, '') : '';
+        }
+
         if (oldValue !== newValue) {
             this.refresh();
         }
+    }
+
+    setBackendUrl(url) {
+        this.setAttribute('backend-url', url);
     }
 
     connectedCallback() {
@@ -108,10 +117,8 @@ class VodBrowser extends HTMLElement {
             return;
         }
 
-        const serverUrl = this.getAttribute('server-url');
-
         try {
-            const response = await fetch(`${serverUrl}/rest/v2/vods/${vod.vodId}`, {
+            const response = await fetch(`${this._backendUrl}/rest/v2/vods/${vod.vodId}`, {
                 method: 'DELETE'
             });
 
@@ -150,7 +157,7 @@ class VodBrowser extends HTMLElement {
     }
 
     refresh() {
-        if (!this.getAttribute('server-url')) {
+        if (!this._backendUrl) {
             return;
         }
         this._currentPage = 0;
@@ -169,18 +176,15 @@ class VodBrowser extends HTMLElement {
     }
     
     async _fetchVods() {
-        const serverUrl = this.getAttribute('server-url');
-        
-        if (!serverUrl) {
-            this._dispatchErrorEvent(new Error("Server URL is required attribute."));
+        if (!this._backendUrl) {
+            this._dispatchErrorEvent(new Error("Backend URL is required attribute."));
             return;
         }
 
         this._showLoading(true);
 
         try {
-            // Fetch a large number of VODs to simplify logic for this sample.
-            const response = await fetch(`${serverUrl}/rest/v2/vods/list/0/200`);
+            const response = await fetch(`${this._backendUrl}/rest/v2/vods/list/0/200`);
             if (!response.ok) throw new Error(`Server responded with status ${response.status}`);
             
             const vods = await this._toJson(response);
@@ -217,7 +221,7 @@ class VodBrowser extends HTMLElement {
             item.dataset.vod = JSON.stringify(vod);
 
             const thumbnailUrl = vod.previewFilePath 
-                ? `${this.getAttribute('server-url')}/${vod.previewFilePath}` 
+                ? `${this._backendUrl}/${vod.previewFilePath}` 
                 : '../img/components/video-placeholder.png';
             
             item.innerHTML = `
