@@ -169,15 +169,18 @@ class DataChannelFileShare extends HTMLElement {
             const fileData = data.slice(4 + filenameLength);
             
             const imageExtensions = ['.jpg', '.jpeg', '.png', '.bmp', '.webp', '.gif'];
-            const ext = filename.toLowerCase().substring(filename.lastIndexOf('.'));
-            const isImage = imageExtensions.includes(ext);
+            const imageMimeTypes = ['image/jpeg', 'image/jpeg', 'image/png', 'image/bmp', 'image/webp', 'image/gif'];
+            const ext = filename.substring(filename.lastIndexOf('.')).toLowerCase();
+            const extIndex = imageExtensions.indexOf(ext);
+            const isImage = extIndex !== -1;
+            const mimeType = isImage ? imageMimeTypes[extIndex] : 'application/octet-stream';
             
             const file = {
                 id: `received_${Date.now()}_${Math.random().toString(36)}`,
                 name: filename,
                 size: fileData.length,
                 timestamp: Date.now(),
-                url: URL.createObjectURL(new Blob([fileData])),
+                url: URL.createObjectURL(new Blob([fileData], { type: mimeType })),
                 isImage: isImage,
                 isSent: false
             };
