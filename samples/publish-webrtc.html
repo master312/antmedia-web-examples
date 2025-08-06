@@ -49,9 +49,10 @@
 
                 <advanced-audio-publisher-settings id="advanced-audio-settings"></advanced-audio-publisher-settings>
                 <advanced-video-publisher-settings id="advanced-video-settings"></advanced-video-publisher-settings>
-                <stream-publish-analytics id="stream-info"></stream-publish-analytics>
                 <data-channel-messaging id="data-channel"></data-channel-messaging>
+                <data-channel-file-share id="file-share" class="mt-3"></data-channel-file-share>
                 <msg-display id="msg-display"></msg-display>
+                <stream-publish-analytics id="stream-info"></stream-publish-analytics>
             </div>
         </div>
 
@@ -74,6 +75,7 @@
         import '../components/advanced-video-publisher-settings.js';
         import '../components/stream-publish-analytics.js';
         import '../components/data-channel-messaging.js';
+        import '../components/data-channel-file-share.js';
         import '../components/virtual-background-manager.js';
         import '../components/deepar-effects-manager.js';
         import '../components/msg-display.js';
@@ -89,6 +91,7 @@
             const advancedVideoSettings = document.getElementById('advanced-video-settings');
             const streamInfo = document.getElementById('stream-info');
             const dataChannel = document.getElementById('data-channel');
+            const fileShare = document.getElementById('file-share');
             const virtualBackgroundManager = document.getElementById('virtual-background-manager');
             const deeparEffectsManager = document.getElementById('deepar-effects-manager');
             const msgDisplay = document.getElementById('msg-display');
@@ -119,6 +122,7 @@
             advancedVideoSettings.setup(webRTCAdaptor);
             streamInfo.setup(webRTCAdaptor);
             dataChannel.setup(webRTCAdaptor);
+            fileShare.setup(webRTCAdaptor);
             deeparEffectsManager.setup(webRTCAdaptor);
             msgDisplay.setup(webRTCAdaptor);
 

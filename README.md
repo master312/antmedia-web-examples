@@ -6,8 +6,6 @@
 This project provides reusable Web Components for building WebRTC applications with Ant Media Server. Sample demonstrations using these components can be found in the `/samples/` directory.
 
 ### TODO:
-- Image Sharing via Data Channel
-- Rename 'stream-controls' to somehting more descriptive
 - Fix 'stream-simple-state' bugs
 - Fix display bugs for 'simple-stream-controlls' while reconnecting
 

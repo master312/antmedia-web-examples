@@ -39,12 +39,13 @@
         <resolution-selector id="resolution-selector" class="mt-3"></resolution-selector>
 
         <stream-simple-state id="stream-state" class="mt-3"></stream-simple-state>
-        <msg-display id="msg-displayer" class="mt-3"></msg-display>
 
         <div class="row">
             <div class="col">
-                <stream-play-analytics id="stream-info"></stream-play-analytics>
                 <data-channel-messaging id="data-channel"></data-channel-messaging>
+                <data-channel-file-share id="file-share" class="mt-3"></data-channel-file-share>
+                <stream-play-analytics id="stream-info"></stream-play-analytics>
+                <msg-display id="msg-displayer" class="mt-3"></msg-display>
             </div>
         </div>
 
@@ -62,6 +63,7 @@
         import '../components/video-view.js';
         import '../components/stream-play-analytics.js';
         import '../components/data-channel-messaging.js';
+        import '../components/data-channel-file-share.js';
         import '../components/msg-display.js';
         import '../components/resolution-selector.js';
 
@@ -70,6 +72,7 @@
             const remoteVideo = document.getElementById('remote-video');
             const streamInfo = document.getElementById('stream-info');
             const dataChannel = document.getElementById('data-channel');
+            const fileShare = document.getElementById('file-share');
             const streamState = document.getElementById('stream-state');
             const msgDisplayer = document.getElementById('msg-displayer');
             const resolutionSelector = document.getElementById('resolution-selector');
@@ -98,6 +101,7 @@
             controls.setup(adaptor, 'play');
             streamInfo.setup(adaptor);
             dataChannel.setup(adaptor);
+            fileShare.setup(adaptor);
             streamState.setup(adaptor);
             msgDisplayer.setup(adaptor);
             resolutionSelector.setup(adaptor);
