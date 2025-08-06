@@ -4,6 +4,8 @@
  * 
  * It works by glueing filename first in the start of data array, then file data, then send's it over WebRTC data channel
  * 
+ * TODO: Make component configurable to be only publish or display or both(default current)
+ * 
  * @event file-received - Fired when a file is received. Detail contains filename and file data.
  * @event error - Fired on errors. Detail contains the error object.
  */
@@ -58,6 +60,7 @@ class DataChannelFileShare extends HTMLElement {
         
         this._adaptor = null;
         this._streamId = null;
+        this._autoSetStreamId = false;
         this._allFiles = [];
     }
 
@@ -93,21 +96,40 @@ class DataChannelFileShare extends HTMLElement {
         };
     }
 
-    setup(adaptor) {
+    setup(adaptor, streamId = null) {
         this._adaptor = adaptor;
+        this._streamId = streamId;
+
         this._adaptor.addEventListener((info, obj) => {
             if (info === "publish_started" || info === "play_started") {
-                this._streamId = obj.streamId;
+                if (this._streamId == null) {
+                    this._streamId = obj.streamId;
+                    this._autoSetStreamId = true;
+                }
+
                 this._updateUI();
             } else if (info === "publish_finished" || info === "play_finished") {
-                this._streamId = null;
+                if (this._autoSetStreamId) {
+                    this._streamId = null;
+                }
+
                 this._updateUI();
             } else if (info === "data_received") {
+                if (!obj.streamId || obj.streamId != this._streamId) {
+                    return;
+                }
+
                 if (obj.data instanceof ArrayBuffer) {
                     this._processReceivedFile(obj.data);
                 }
             }
         });
+    }
+
+    setStreamId(streamId) {
+        this._streamId = streamId;
+        this._autoSetStreamId = false;
+        console.log('data-channel-file-share: setStreamId', this._streamId);
     }
 
     async _sendFile(file) {
