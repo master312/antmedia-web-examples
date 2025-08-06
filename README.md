@@ -7,7 +7,6 @@ This project provides reusable Web Components for building WebRTC applications w
 
 ### TODO:
 - Image Sharing via Data Channel
-- Resolution selector
 - Better organize simples or something?
 - Custom selector instead of \<select\> for dropdowns? So that it can be customised?
 - URL Parameter Handling?
@@ -80,6 +79,7 @@ window.AntMediaConfig.componentStyles['stream-simple-controls'] = './my-custom.c
 - `input-video-selector` - Video device and screen sharing selection
 - `toggle-camera` - Camera enable/disable button
 - `toggle-microphone` - Microphone mute/unmute button
+- `resolution-selector` - Stream resolution quality selection dropdown for play
 
 ### Advanced Settings
 - `advanced-audio-publisher-settings` - Audio processing controls (noise suppression, gain)
