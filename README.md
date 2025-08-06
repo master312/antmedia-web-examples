@@ -99,6 +99,7 @@ window.AntMediaConfig.componentStyles['stream-controls'] = './my-custom.css';
 
 ### Communication
 - `data-channel-messaging` - WebRTC data channel chat
+- `data-channel-file-share` - File sharing over WebRTC data channels with image preview
 - `collaborative-canvas` - Real-time collaborative drawing
 
 ### Misc
