@@ -7,7 +7,7 @@ window.AntMediaConfig = window.AntMediaConfig || {};
 
 // Custom CSS paths for components (leave empty for defaults)
 window.AntMediaConfig.componentStyles = window.AntMediaConfig.componentStyles || {
-    // Example: 'stream-simple-controls': './demos/custom-styles/my-controls.css'
+    // Example: 'stream-controls': './demos/custom-styles/my-controls.css'
 };
 
 // Custom common CSS paths (leave empty for defaults)

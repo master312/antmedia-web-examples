@@ -10,7 +10,7 @@
 
 import { ComponentCommon } from './component-common.js';
 
-const stylePath = ComponentCommon.getComponentCssConfig('stream-simple-controls');
+const stylePath = ComponentCommon.getComponentCssConfig('stream-controls');
 const bootstrapPath = ComponentCommon.getBootstrapCss();
 const commonStylePath = ComponentCommon.getCommonCss();
 
@@ -161,4 +161,4 @@ class StreamSimpleControls extends HTMLElement {
     }
 }
 
-window.customElements.define('stream-simple-controls', StreamSimpleControls); 
+window.customElements.define('stream-controls', StreamSimpleControls); 

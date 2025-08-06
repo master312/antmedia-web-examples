@@ -11,7 +11,7 @@
     <!-- Override default CSS paths for customization -->
     <script>
         window.AntMediaConfig.componentStyles['video-view'] = './custom-styles/video-view.css';
-        window.AntMediaConfig.componentStyles['stream-simple-controls'] = './custom-styles/stream-simple-controls.css';
+        window.AntMediaConfig.componentStyles['stream-controls'] = './custom-styles/stream-controls.css';
         window.AntMediaConfig.componentStyles['toggle-camera'] = './custom-styles/toggle-buttons.css';
         window.AntMediaConfig.componentStyles['toggle-microphone'] = './custom-styles/toggle-buttons.css';
         window.AntMediaConfig.commonStyles['component-common'] = './custom-styles/component-common.css';
@@ -37,12 +37,12 @@
                 
                 <div class="demo-controls-section">
                     <div class="stream-setup">
-                        <stream-simple-controls 
+                        <stream-controls 
                             id="stream-controls" 
                             start-button-text="Start Streaming" 
                             stop-button-text="Stop Streaming"
                             disable-input>
-                        </stream-simple-controls>
+                        </stream-controls>
                         
                         <div class="d-flex justify-content-center my-2">
                             <toggle-camera id="toggle-camera" class="mr-2"></toggle-camera>

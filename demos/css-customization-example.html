@@ -11,7 +11,7 @@
     <!-- Override default CSS paths for customization -->
     <script>
         // Customize component styles - paths are used exactly as provided
-        window.AntMediaConfig.componentStyles['stream-simple-controls'] = './custom-styles/my-stream-controls.css';
+        window.AntMediaConfig.componentStyles['stream-controls'] = './custom-styles/my-stream-controls.css';
         window.AntMediaConfig.componentStyles['data-channel-messaging'] = './custom-styles/my-messaging.css';
         
         // You can also customize Bootstrap and common CSS
@@ -27,12 +27,12 @@
         <p>This example shows how to customize component styles using the global configuration.</p>
         
         <!-- Components will automatically use custom CSS paths -->
-        <stream-simple-controls></stream-simple-controls>
+        <stream-controls></stream-controls>
         <data-channel-messaging></data-channel-messaging>
     </div>
 
     <!-- Load components AFTER configuration -->
-    <script type="module" src="../components/stream-simple-controls.js"></script>
+    <script type="module" src="../components/stream-controls.js"></script>
     <script type="module" src="../components/data-channel-messaging.js"></script>
 </body>
 </html> 

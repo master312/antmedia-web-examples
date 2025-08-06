@@ -7,12 +7,14 @@ This project provides reusable Web Components for building WebRTC applications w
 
 ### TODO:
 - Image Sharing via Data Channel
-- Better organize simples or something?
-- Custom selector instead of \<select\> for dropdowns? So that it can be customised?
-- URL Parameter Handling?
-- Rename 'stream-simple-controls' to somehting more descriptive
+- Rename 'stream-controls' to somehting more descriptive
 - Fix 'stream-simple-state' bugs
 - Fix display bugs for 'simple-stream-controlls' while reconnecting
+
+- Custom selector instead of \<select\> for dropdowns? So that it can be customised?
+- URL Parameter Handling?
+- Detailed docs for components?
+- Better organize simples or something?
 
 ---
 
@@ -58,11 +60,11 @@ All components use CSS that can be overriden. Default CSS files are stored in `.
 
 <!-- Override default paths, or create your own custom AntMediaCSSConfig based on exisitng exmaple-->
 <script>
-window.AntMediaConfig.componentStyles['stream-simple-controls'] = './my-custom.css';
+window.AntMediaConfig.componentStyles['stream-controls'] = './my-custom.css';
 </script>
 
 <!-- Load components -->
-<script type="module" src="components/stream-simple-controls.js"></script>
+<script type="module" src="components/stream-controls.js"></script>
 ```
 
 ## Components
@@ -70,7 +72,7 @@ window.AntMediaConfig.componentStyles['stream-simple-controls'] = './my-custom.c
 *More details about individual component, see the component source files in the `/components` directory.*
 
 ### Core Stream Controls
-- `stream-simple-controls` - Stream ID input with start/stop toggle
+- `stream-controls` - Stream ID input with start/stop toggle
 - `stream-simple-state` - Stream status and role display  [BROKEN]
 - `video-view` - Video player component
 

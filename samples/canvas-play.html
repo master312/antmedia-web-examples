@@ -30,10 +30,10 @@
                     <collaborative-canvas id="play-canvas"></collaborative-canvas>
                 </div>
                 <div class="mt-3">
-                    <stream-simple-controls id="play-controls"
+                    <stream-controls id="play-controls"
                         start-button-text="Start Playing"
                         stop-button-text="Stop Playing">
-                    </stream-simple-controls>
+                    </stream-controls>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
         import {WebRTCAdaptor} from '../js/ant-sdk/webrtc_adaptor.js';
         import { BACKEND_URL } from '../js/samples-config.js';
         import { getWebSocketURL } from '../js/ant-sdk/utility.js';
-        import '../components/stream-simple-controls.js';
+        import '../components/stream-controls.js';
         import '../components/video-view.js';
         import '../components/msg-display.js';
         import '../components/collaborative-canvas.js';

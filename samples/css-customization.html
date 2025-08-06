@@ -12,7 +12,7 @@
     <script>
         // Customize component styles with custom paths
         window.AntMediaConfig.componentStyles['video-view'] = './css-customization/video-view.css';
-        window.AntMediaConfig.componentStyles['stream-simple-controls'] = './css-customization/stream-simple-controls.css';
+        window.AntMediaConfig.componentStyles['stream-controls'] = './css-customization/stream-controls.css';
         window.AntMediaConfig.componentStyles['input-video-selector'] = './css-customization/input-video-selector.css';
         window.AntMediaConfig.componentStyles['input-audio-selector'] = './css-customization/input-audio-selector.css';
         window.AntMediaConfig.commonStyles['component-common'] = './css-customization/component-common.css';
@@ -44,7 +44,7 @@
 
                 <input-video-selector id="input-video-selector"></input-video-selector>
                 <input-audio-selector id="input-audio-selector"></input-audio-selector>
-                <stream-simple-controls id="stream-controls" start-button-text="Start Publishing" stop-button-text="Stop Publishing"></stream-simple-controls>
+                <stream-controls id="stream-controls" start-button-text="Start Publishing" stop-button-text="Stop Publishing"></stream-controls>
 
             </div>
         </div>
@@ -61,7 +61,7 @@
         import '../components/video-view.js';
         import '../components/input-video-selector.js';
         import '../components/input-audio-selector.js';
-        import '../components/stream-simple-controls.js';
+        import '../components/stream-controls.js';
 
         document.addEventListener('DOMContentLoaded', () => {
             const videoPreview = document.getElementById('video-preview');

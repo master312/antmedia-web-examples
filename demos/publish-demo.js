@@ -1,6 +1,6 @@
 import {WebRTCAdaptor} from '../js/ant-sdk/webrtc_adaptor.js';
 import '../components/video-view.js';
-import '../components/stream-simple-controls.js';
+import '../components/stream-controls.js';
 import '../components/toggle-camera.js';
 import '../components/toggle-microphone.js';
 import {PublishDemoModal} from './publish-demo-modal.js';
