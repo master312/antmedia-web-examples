@@ -42,7 +42,7 @@ class StreamSimpleControls extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
         this._adaptor = null;
         this._streamType = 'publish'; // Defaults to publish
-        this._state = 'idle'; // idle, pending, active
+        this._state = 'idle'; // idle, pending, active, reconnecting 
     }
 
     connectedCallback() {
@@ -65,8 +65,12 @@ class StreamSimpleControls extends HTMLElement {
         // Sync initial reconnect state
         this._onReconnectToggle();
 
-        this._adaptor.addEventListener((info, obj) => this._handleStateChange(info));
-        this._adaptor.addErrorEventListener((error, message) => this._handleStateChange('error'));
+
+        // Error struct:
+        // {streamId: 'streamId_c0jg4h326', error_code: '404', definition: 'no_stream_exist', information: 'stream_not_exist_or_not_streaming', command: 'error'}
+
+        this._adaptor.addEventListener((info, obj) => this._handleStateChange(info, obj));
+        this._adaptor.addErrorEventListener((error, message) => this._handleStateChange('error', message));
     }
 
     isActive() {
@@ -89,7 +93,14 @@ class StreamSimpleControls extends HTMLElement {
                 detail: { streamId: this.streamNameInput.value }
             }));
             this._state = 'pending';
+        } else if (this._state === 'reconnecting') {
+            // If we are trying to reconnect, and we click this button, we should stop.
+            this.dispatchEvent(new CustomEvent('stop-stream', {
+                detail: { streamId: this.streamNameInput.value }
+            }));
+            this._state = 'idle';
         }
+
         this._updateUI();
     }
 
@@ -99,28 +110,25 @@ class StreamSimpleControls extends HTMLElement {
         }
     }
 
-    _handleStateChange(info) {
+    _handleStateChange(info, obj) {
         const startEvent = this._streamType === 'publish' ? 'publish_started' : 'play_started';
         const stopEvent = this._streamType === 'publish' ? 'publish_finished' : 'play_finished';
-        
+
         if (info === startEvent) {
             this._state = 'active';
-        } else if (info === stopEvent || info === 'error') {
-            // Only transition to idle if we're not in a reconnection scenario
-            if (this._adaptor && this._adaptor.reconnectIfRequiredFlag) {
-                this._state = 'pending';
-                setTimeout(() => {
-                    // Add bit of delay before allowing new interactions
-                    this._state = 'idle';
-                    this._updateUI();
-                }, 850);
+        } else if (info === stopEvent) {
+            if (this._adaptor.reconnectIfRequiredFlag && this._state === 'active') {
+                // We have disconnected, but state is still active, meaning conneciton was lost.
+                this._state = 'reconnecting';
             } else {
                 this._state = 'idle';
             }
         } else if (info === 'reconnection_attempt_for_publisher' || info === 'reconnection_attempt_for_player') {
-            // Ensure we stay in pending state during reconnection
             this._state = 'pending';
+        } else if (info === 'error' && this._state === 'pending') {
+            this._state = 'reconnecting';
         }
+
         this._updateUI();
     }
     
@@ -142,6 +150,12 @@ class StreamSimpleControls extends HTMLElement {
             case 'active':
                 this.toggleButton.textContent = this.getAttribute('stop-button-text') || 'Stop';
                 this.toggleButton.className = 'btn btn-danger';
+                this.toggleButton.disabled = false;
+                this.streamNameInput.disabled = true;
+                break;
+            case 'reconnecting':
+                this.toggleButton.textContent = 'Stop Reconnecting';
+                this.toggleButton.className = 'btn btn-warning';
                 this.toggleButton.disabled = false;
                 this.streamNameInput.disabled = true;
                 break;
